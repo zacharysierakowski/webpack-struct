@@ -1,9 +1,16 @@
-const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const { MODE } = require("./constants");
+const { TEMPLATE, HTML_TITLE, FAVICON, IS_DEVELOP } = require("./constants");
 
 module.exports = [
-  new webpack.DefinePlugin({
-    "process.env.NODE_ENV": JSON.stringify(MODE)
+  new HtmlWebpackPlugin({
+    title: HTML_TITLE,
+    template: TEMPLATE,
+    favicon: FAVICON
+  }),
+  new MiniCssExtractPlugin({
+    filename: IS_DEVELOP ? "[name].css" : "[name].[hash].css",
+    chunkFilename: IS_DEVELOP ? "[id].css" : "[id].[hash].css"
   })
 ];
